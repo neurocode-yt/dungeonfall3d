@@ -1,0 +1,122 @@
+{
+  "KnightCharacter": [
+    {
+      "material": "Armor",
+      "bam": "assets3d/knight_bam/KnightCharacter__Armor.bam",
+      "color": [
+        0.12186,
+        0.12186,
+        0.12186,
+        1.0
+      ]
+    },
+    {
+      "material": "Skin",
+      "bam": "assets3d/knight_bam/KnightCharacter__Skin.bam",
+      "color": [
+        0.59872,
+        0.446157,
+        0.25851,
+        1.0
+      ]
+    },
+    {
+      "material": "Boots",
+      "bam": "assets3d/knight_bam/KnightCharacter__Boots.bam",
+      "color": [
+        0.024851,
+        0.010088,
+        0.006324,
+        1.0
+      ]
+    }
+  ],
+  "Helmet1": [
+    {
+      "material": "Grey",
+      "bam": "assets3d/knight_bam/Helmet1__Grey.bam",
+      "color": [
+        0.343375,
+        0.343375,
+        0.343375,
+        1.0
+      ]
+    },
+    {
+      "material": "DarkGrey",
+      "bam": "assets3d/knight_bam/Helmet1__DarkGrey.bam",
+      "color": [
+        0.224803,
+        0.224803,
+        0.224803,
+        1.0
+      ]
+    }
+  ],
+  "Helmet2": [
+    {
+      "material": "Grey",
+      "bam": "assets3d/knight_bam/Helmet2__Grey.bam",
+      "color": [
+        0.336015,
+        0.336015,
+        0.336015,
+        1.0
+      ]
+    }
+  ],
+  "ShoulderPads": [
+    {
+      "material": "Grey",
+      "bam": "assets3d/knight_bam/ShoulderPads__Grey.bam",
+      "color": [
+        0.307495,
+        0.307495,
+        0.307495,
+        1.0
+      ]
+    }
+  ],
+  "Sword": [
+    {
+      "material": "Metal",
+      "bam": "assets3d/knight_bam/Sword__Metal.bam",
+      "color": [
+        0.397535,
+        0.397535,
+        0.397535,
+        1.0
+      ]
+    },
+    {
+      "material": "Red",
+      "bam": "assets3d/knight_bam/Sword__Red.bam",
+      "color": [
+        0.113918,
+        0.012401,
+        0.005525,
+        1.0
+      ]
+    },
+    {
+      "material": "Gold",
+      "bam": "assets3d/knight_bam/Sword__Gold.bam",
+      "color": [
+        0.52,
+        0.226881,
+        0.039373,
+        1.0
+      ]
+    },
+    {
+      "material": "Brown",
+      "bam": "assets3d/knight_bam/Sword__Brown.bam",
+      "color": [
+        0.085225,
+        0.03725,
+        0.016393,
+        1.0
+      ]
+    }
+  ]
+}

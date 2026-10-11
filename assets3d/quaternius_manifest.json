@@ -1,0 +1,414 @@
+{
+  "Character_Animated": [
+    {
+      "material": "Skin",
+      "bam": "assets3d/quaternius_bam/Character_Animated__Skin.bam",
+      "color": [
+        0.483049,
+        0.355199,
+        0.196956,
+        1.0
+      ]
+    },
+    {
+      "material": "Shirt",
+      "bam": "assets3d/quaternius_bam/Character_Animated__Shirt.bam",
+      "color": [
+        0.079642,
+        0.196949,
+        0.196949,
+        1.0
+      ]
+    },
+    {
+      "material": "UnderShirt",
+      "bam": "assets3d/quaternius_bam/Character_Animated__UnderShirt.bam",
+      "color": [
+        0.151941,
+        0.224805,
+        0.061406,
+        1.0
+      ]
+    },
+    {
+      "material": "Boots",
+      "bam": "assets3d/quaternius_bam/Character_Animated__Boots.bam",
+      "color": [
+        0.07807,
+        0.067501,
+        0.047609,
+        1.0
+      ]
+    },
+    {
+      "material": "Pants",
+      "bam": "assets3d/quaternius_bam/Character_Animated__Pants.bam",
+      "color": [
+        0.156788,
+        0.156521,
+        0.101362,
+        1.0
+      ]
+    },
+    {
+      "material": "Detail",
+      "bam": "assets3d/quaternius_bam/Character_Animated__Detail.bam",
+      "color": [
+        0.413863,
+        0.391429,
+        0.273101,
+        1.0
+      ]
+    },
+    {
+      "material": "Hair",
+      "bam": "assets3d/quaternius_bam/Character_Animated__Hair.bam",
+      "color": [
+        0.273904,
+        0.192844,
+        0.049196,
+        1.0
+      ]
+    },
+    {
+      "material": "Eye",
+      "bam": "assets3d/quaternius_bam/Character_Animated__Eye.bam",
+      "color": [
+        0.011735,
+        0.011735,
+        0.011735,
+        1.0
+      ]
+    },
+    {
+      "material": "Pupil",
+      "bam": "assets3d/quaternius_bam/Character_Animated__Pupil.bam",
+      "color": [
+        0.037568,
+        0.037568,
+        0.037568,
+        1.0
+      ]
+    },
+    {
+      "material": "White",
+      "bam": "assets3d/quaternius_bam/Character_Animated__White.bam",
+      "color": [
+        0.539074,
+        0.539074,
+        0.539074,
+        1.0
+      ]
+    },
+    {
+      "material": "Material.006",
+      "bam": "assets3d/quaternius_bam/Character_Animated__Material.006.bam",
+      "color": [
+        0.213406,
+        0.078157,
+        0.054118,
+        1.0
+      ]
+    }
+  ],
+  "Wall": [
+    {
+      "material": "Main",
+      "bam": "assets3d/quaternius_bam/Wall__Main.bam",
+      "color": [
+        0.127169,
+        0.129624,
+        0.099817,
+        1.0
+      ]
+    },
+    {
+      "material": "Highlights",
+      "bam": "assets3d/quaternius_bam/Wall__Highlights.bam",
+      "color": [
+        0.231946,
+        0.23655,
+        0.180764,
+        1.0
+      ]
+    }
+  ],
+  "Floor_Standard": [
+    {
+      "material": "Main",
+      "bam": "assets3d/quaternius_bam/Floor_Standard__Main.bam",
+      "color": [
+        0.127169,
+        0.129624,
+        0.099817,
+        1.0
+      ]
+    },
+    {
+      "material": "Highlights",
+      "bam": "assets3d/quaternius_bam/Floor_Standard__Highlights.bam",
+      "color": [
+        0.231946,
+        0.23655,
+        0.180764,
+        1.0
+      ]
+    }
+  ],
+  "Wall_ArchGothic": [
+    {
+      "material": "Main",
+      "bam": "assets3d/quaternius_bam/Wall_ArchGothic__Main.bam",
+      "color": [
+        0.127169,
+        0.129624,
+        0.099817,
+        1.0
+      ]
+    },
+    {
+      "material": "Highlights",
+      "bam": "assets3d/quaternius_bam/Wall_ArchGothic__Highlights.bam",
+      "color": [
+        0.231946,
+        0.23655,
+        0.180764,
+        1.0
+      ]
+    }
+  ],
+  "Column_Round": [
+    {
+      "material": "Main",
+      "bam": "assets3d/quaternius_bam/Column_Round__Main.bam",
+      "color": [
+        0.127169,
+        0.129624,
+        0.099817,
+        1.0
+      ]
+    }
+  ],
+  "Doors_GothicArch": [
+    {
+      "material": "Wood",
+      "bam": "assets3d/quaternius_bam/Doors_GothicArch__Wood.bam",
+      "color": [
+        0.12234,
+        0.083516,
+        0.041304,
+        1.0
+      ]
+    },
+    {
+      "material": "DarkWood",
+      "bam": "assets3d/quaternius_bam/Doors_GothicArch__DarkWood.bam",
+      "color": [
+        0.06971,
+        0.046381,
+        0.022411,
+        1.0
+      ]
+    },
+    {
+      "material": "Metal",
+      "bam": "assets3d/quaternius_bam/Doors_GothicArch__Metal.bam",
+      "color": [
+        0.077633,
+        0.081879,
+        0.095419,
+        1.0
+      ]
+    },
+    {
+      "material": "Metal_Light",
+      "bam": "assets3d/quaternius_bam/Doors_GothicArch__Metal_Light.bam",
+      "color": [
+        0.142896,
+        0.150997,
+        0.176881,
+        1.0
+      ]
+    }
+  ],
+  "Torch": [
+    {
+      "material": "DarkMetal",
+      "bam": "assets3d/quaternius_bam/Torch__DarkMetal.bam",
+      "color": [
+        0.033179,
+        0.029635,
+        0.048573,
+        1.0
+      ]
+    },
+    {
+      "material": "Fire",
+      "bam": "assets3d/quaternius_bam/Torch__Fire.bam",
+      "color": [
+        0.4569,
+        0.136222,
+        0.019765,
+        1.0
+      ]
+    }
+  ],
+  "Barrel": [
+    {
+      "material": "Wood",
+      "bam": "assets3d/quaternius_bam/Barrel__Wood.bam",
+      "color": [
+        0.12234,
+        0.083516,
+        0.041304,
+        1.0
+      ]
+    },
+    {
+      "material": "Metal",
+      "bam": "assets3d/quaternius_bam/Barrel__Metal.bam",
+      "color": [
+        0.077633,
+        0.081879,
+        0.095419,
+        1.0
+      ]
+    },
+    {
+      "material": "DarkWood",
+      "bam": "assets3d/quaternius_bam/Barrel__DarkWood.bam",
+      "color": [
+        0.06971,
+        0.046381,
+        0.022411,
+        1.0
+      ]
+    }
+  ],
+  "Bookcase_Full": [
+    {
+      "material": "Wood",
+      "bam": "assets3d/quaternius_bam/Bookcase_Full__Wood.bam",
+      "color": [
+        0.12234,
+        0.083516,
+        0.041304,
+        1.0
+      ]
+    },
+    {
+      "material": "DarkWood",
+      "bam": "assets3d/quaternius_bam/Bookcase_Full__DarkWood.bam",
+      "color": [
+        0.06971,
+        0.046381,
+        0.022411,
+        1.0
+      ]
+    },
+    {
+      "material": "Pages",
+      "bam": "assets3d/quaternius_bam/Bookcase_Full__Pages.bam",
+      "color": [
+        0.320031,
+        0.296306,
+        0.188324,
+        1.0
+      ]
+    },
+    {
+      "material": "Book2",
+      "bam": "assets3d/quaternius_bam/Bookcase_Full__Book2.bam",
+      "color": [
+        0.059755,
+        0.101503,
+        0.034773,
+        1.0
+      ]
+    },
+    {
+      "material": "Book",
+      "bam": "assets3d/quaternius_bam/Bookcase_Full__Book.bam",
+      "color": [
+        0.138561,
+        0.030966,
+        0.02688,
+        1.0
+      ]
+    },
+    {
+      "material": "Book3",
+      "bam": "assets3d/quaternius_bam/Bookcase_Full__Book3.bam",
+      "color": [
+        0.067236,
+        0.022338,
+        0.138561,
+        1.0
+      ]
+    },
+    {
+      "material": "Book4",
+      "bam": "assets3d/quaternius_bam/Bookcase_Full__Book4.bam",
+      "color": [
+        0.022314,
+        0.044432,
+        0.101503,
+        1.0
+      ]
+    }
+  ],
+  "Bricks": [
+    {
+      "material": "Main",
+      "bam": "assets3d/quaternius_bam/Bricks__Main.bam",
+      "color": [
+        0.127169,
+        0.129624,
+        0.099817,
+        1.0
+      ]
+    },
+    {
+      "material": "Highlights",
+      "bam": "assets3d/quaternius_bam/Bricks__Highlights.bam",
+      "color": [
+        0.231946,
+        0.23655,
+        0.180764,
+        1.0
+      ]
+    }
+  ],
+  "Candles_1": [
+    {
+      "material": "Candle",
+      "bam": "assets3d/quaternius_bam/Candles_1__Candle.bam",
+      "color": [
+        0.340181,
+        0.300913,
+        0.108173,
+        1.0
+      ]
+    },
+    {
+      "material": "Light",
+      "bam": "assets3d/quaternius_bam/Candles_1__Light.bam",
+      "color": [
+        0.558813,
+        0.087866,
+        0.054359,
+        1.0
+      ]
+    },
+    {
+      "material": "Black",
+      "bam": "assets3d/quaternius_bam/Candles_1__Black.bam",
+      "color": [
+        0.035402,
+        0.035402,
+        0.035402,
+        1.0
+      ]
+    }
+  ]
+}

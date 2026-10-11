@@ -1,0 +1,52 @@
+# Python runtime/cache files
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Local/editor files
+.idea/
+.vscode/
+*.log
+*.tmp
+*.bak
+*.swp
+Thumbs.db
+.DS_Store
+
+# Local validation screenshots/probes
+_*.png
+_*.jpg
+_*.jpeg
+_*.py
+
+# Large generated / experimental 3D conversion caches.
+# The runtime-ready assets required by the game remain tracked.
+models_compressed/
+assets3d/animations/
+assets3d/autosprite/
+assets3d/autosprite_assimp/
+assets3d/autosprite_skip/
+assets3d/knight_bam/
+assets3d/knight_parts/
+assets3d/pirates/
+assets3d/quaternius_parts/
+assets3d/ranger/
+assets3d/ruins_bam/
+assets3d/zombie_chars/
+
+# Unused detailed-character variants; the live game uses
+# azure-champion.bam and hooded-blade.bam.
+assets3d/detailed_characters/paladin.bam
+assets3d/detailed_characters/skeleton-gunslinger.bam
+
+# Raw/processed source packs used while experimenting or building runtime assets.
+third_party/_freemodels_index/
+third_party/autosprite_free/
+third_party/quaternius_animation_library/
+third_party/quaternius_fantasy_ranger/
+third_party/quaternius_knight_selected/
+third_party/quaternius_pirate_characters/
+third_party/quaternius_zombie_chars/
