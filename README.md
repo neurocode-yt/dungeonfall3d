@@ -33,13 +33,14 @@ The game now starts directly in Room 1 so you immediately see the 3D dungeon.
 
 ## Current gameplay
 
-- Four 3D dungeon rooms
+- Four enlarged 32x20-unit 3D dungeon rooms
 - Close third-person camera rig with free horizontal/vertical rotation
-- 6.4-unit default camera distance, 4.2-unit user zoom floor and a hard
-  2.9-unit character clearance so wall avoidance cannot push the camera into
-  the player model
+- 6.4-unit default camera distance and 4.2-unit user zoom floor, with
+  obstruction-aware orbit recovery that swings around close walls/corners
+  instead of letting geometry block the player
 - Camera-relative movement
-- Mouse + keyboard camera controls, mouse-wheel zoom and wall-aware camera pull-in
+- Mouse + keyboard camera controls, mouse-wheel zoom, wall-aware pull-in and
+  automatic clear-view camera angle recovery near walls/cover
 - SimplePBR renderer with 2x MSAA, tone mapping, multiple lights, 2048px shadows and fog
 - 2K CC0 Poly Haven stone wall/floor diffuse + normal + ARM materials
 - Tangent-ready dungeon shell so normal maps react correctly to lighting

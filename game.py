@@ -410,7 +410,7 @@ class Player(Entity):
         self.hit_this_swing: set[int] = set()
         self.previous_sword_segment: tuple[Vec3, Vec3] | None = None
         super().__init__(
-            position=(-7.4, 0.0, 0),
+            position=(-ROOM_HALF_WIDTH + 7.0, 0.0, 0),
         )
         model = add_player_model(self)
         self.visual = model["visual"]
@@ -795,6 +795,11 @@ class DungeonFall3D:
         self.camera_yaw = 65.0
         self.camera_pitch = CAMERA_PITCH
         self.camera_distance = CAMERA_DISTANCE
+        # The user controls camera_yaw.  This extra offset is only used when a
+        # nearby wall would otherwise sit between the camera and the player.
+        # It lets the camera swing around the obstruction instead of being
+        # forced through the wall by the hard third-person clearance floor.
+        self.camera_collision_yaw_offset = 0.0
         self.pre_pause_mouse_locked = True
         self.keys_down: set[str] = set()
         self.runtime_controller = RuntimeController(self)
@@ -827,7 +832,7 @@ class DungeonFall3D:
         )
         self.sky = Sky(color=c255(5, 7, 12))
         scene.fog_color = c255(8, 10, 15)
-        scene.fog_density = (12, 30)
+        scene.fog_density = (16, 38)
 
         self.camera_rig = Entity(position=(0, 1.5, 0))
         self.camera_pitch_pivot = Entity(parent=self.camera_rig, rotation_x=self.camera_pitch)
@@ -1157,6 +1162,7 @@ class DungeonFall3D:
         self.camera_yaw = 65.0
         self.camera_pitch = CAMERA_PITCH
         self.camera_distance = CAMERA_DISTANCE
+        self.camera_collision_yaw_offset = 0.0
         self.player_hit_tint_timer = 0.0
         self.camera_shake_timer = 0.0
         self.camera_shake_strength = 0.0
@@ -1235,13 +1241,19 @@ class DungeonFall3D:
         self.clear_room()
         self.room_index = index
         spec = ROOMS[index]
+        # Room layouts were authored for the original 12x7 half-size arena.
+        # Spread those layouts across the enlarged room while retaining the
+        # obstacle sizes, so combat gains space without turning pillars/cover
+        # into oversized geometry.
+        layout_scale_x = ROOM_HALF_WIDTH / 12.0
+        layout_scale_z = ROOM_HALF_DEPTH / 7.0
         self.transition_lock = 0.45
         self.health_spawn_timer = random.uniform(HEALTH_SPAWN_MIN, HEALTH_SPAWN_MAX)
         self.build_room_shell()
         for obstacle in spec.obstacles:
             block = tangent_cube_entity(
                 color=c255(150, 154, 162),
-                position=(obstacle.x, obstacle.height / 2, obstacle.z),
+                position=(obstacle.x * layout_scale_x, obstacle.height / 2, obstacle.z * layout_scale_z),
                 scale=(obstacle.width, obstacle.height, obstacle.depth),
                 texture="assets3d/pbr/stone_wall_diff_2k.jpg",
                 texture_scale=(max(1.0, obstacle.width / 1.6), max(1.0, obstacle.height / 1.2)),
@@ -1268,10 +1280,13 @@ class DungeonFall3D:
                 scale=(obstacle.width + 0.13, 0.16, obstacle.depth + 0.13),
             )
             self.room_entities.extend([cap, foot])
-        self.enemies = [Enemy(self, e) for e in spec.enemies]
+        self.enemies = [
+            Enemy(self, EnemySpec(e.x * layout_scale_x, e.z * layout_scale_z, e.kind))
+            for e in spec.enemies
+        ]
         self.sun.update_bounds(self.shadow_bounds)
         if self.player:
-            self.player.position = (-7.4, 0.0, 0.0)
+            self.player.position = (-ROOM_HALF_WIDTH + 7.0, 0.0, 0.0)
             self.update_camera()
         self.message_text.text = spec.name
 
@@ -1281,7 +1296,7 @@ class DungeonFall3D:
             position=(0, -0.24, 0),
             scale=(ROOM_HALF_WIDTH * 2, 0.48, ROOM_HALF_DEPTH * 2),
             texture="assets3d/pbr/stone_floor_diff_2k.jpg",
-            texture_scale=(7.0, 4.1),
+            texture_scale=(ROOM_HALF_WIDTH / 1.72, ROOM_HALF_DEPTH / 1.70),
             roughness=1.0,
             normal_map="assets3d/pbr/stone_floor_nor_2k.jpg",
             selector_map="assets3d/pbr/stone_floor_arm_2k.jpg",
@@ -1292,7 +1307,7 @@ class DungeonFall3D:
             position=(0, WALL_HEIGHT + 0.18, 0),
             scale=(ROOM_HALF_WIDTH * 2, 0.20, ROOM_HALF_DEPTH * 2),
             texture="assets3d/pbr/stone_wall_diff_2k.jpg",
-            texture_scale=(7.0, 4.0),
+            texture_scale=(ROOM_HALF_WIDTH / 1.72, ROOM_HALF_DEPTH / 1.70),
             roughness=1.0,
             normal_map="assets3d/pbr/stone_wall_nor_2k.jpg",
             selector_map="assets3d/pbr/stone_wall_arm_2k.jpg",
@@ -1361,14 +1376,15 @@ class DungeonFall3D:
         self.room_entities.append(
             quaternius_entity(
                 "Wall_ArchGothic",
-                position=(11.48, 0, 0),
+                position=(ROOM_HALF_WIDTH - 0.52, 0, 0),
                 rotation_y=90,
                 scale=(0.91, 1.10, 1.0),
                 material_tint=(0.75, 0.86, 1.16, 1.0),
             )
         )
 
-        for torch_pos in ((-8.0, 1.55, -ROOM_HALF_DEPTH + 0.46), (2.2, 1.55, -ROOM_HALF_DEPTH + 0.46), (-4.0, 1.55, ROOM_HALF_DEPTH - 0.46), (6.8, 1.55, ROOM_HALF_DEPTH - 0.46)):
+        torch_x_scale = ROOM_HALF_WIDTH / 12.0
+        for torch_pos in ((-8.0 * torch_x_scale, 1.55, -ROOM_HALF_DEPTH + 0.46), (2.2 * torch_x_scale, 1.55, -ROOM_HALF_DEPTH + 0.46), (-4.0 * torch_x_scale, 1.55, ROOM_HALF_DEPTH - 0.46), (6.8 * torch_x_scale, 1.55, ROOM_HALF_DEPTH - 0.46)):
             torch_parts = add_torch(torch_pos)
             self.room_entities.append(torch_parts[0])
             inward_z = torch_pos[2] + (1.05 if torch_pos[2] < 0 else -1.05)
@@ -1414,8 +1430,16 @@ class DungeonFall3D:
                 ("Bricks", (0.0, 0.02, -5.10), 1.05, 0),
             ),
         )
+        prop_x_scale = ROOM_HALF_WIDTH / 12.0
+        prop_z_scale = ROOM_HALF_DEPTH / 7.0
         for model_name, position, prop_scale, yaw in room_props[self.room_index]:
-            prop = quaternius_entity(model_name, position=position, scale=prop_scale, rotation_y=yaw)
+            px, py, pz = position
+            prop = quaternius_entity(
+                model_name,
+                position=(px * prop_x_scale, py, pz * prop_z_scale),
+                scale=prop_scale,
+                rotation_y=yaw,
+            )
             self.room_entities.append(prop)
 
         if self.room_index in (1, 3):
@@ -1514,30 +1538,79 @@ class DungeonFall3D:
             facing = Vec3(math.sin(math.radians(self.player.rotation_y)), 0, math.cos(math.radians(self.player.rotation_y)))
             target += -facing * (0.65 * fall) + Vec3(0, -0.55 * fall, 0)
         self.camera_rig.position = target
-        self.camera_rig.rotation_y = self.camera_yaw
-        self.camera_pitch_pivot.rotation_x = self.camera_pitch
-
-        backward = -self.camera_pitch_pivot.forward
         ignored_entities = [self.player, *self.enemies, *self.pickups]
-        right = self.camera_pitch_pivot.right
-        up = self.camera_pitch_pivot.up
-        r = CAMERA_PROBE_RADIUS
-        origins = (
-            target,
-            target + right * r,
-            target - right * r,
-            target + up * r,
-            target - up * r * 0.55,
-        )
-        hits = [raycast(origin, backward, distance=self.camera_distance, ignore=ignored_entities) for origin in origins]
-        hit_distances = [hit.distance for hit in hits if hit.hit]
-        safe_distance = self.camera_distance
-        if hit_distances:
-            safe_distance = min(safe_distance, min(hit_distances) - CAMERA_COLLISION_PADDING)
-        # Never allow wall avoidance to collapse the camera into/through the
-        # player.  The user's zoom floor is even farther out; this lower hard
-        # clearance only applies when a wall is forcing the camera closer.
-        safe_distance = max(CAMERA_COLLISION_MIN_DISTANCE, safe_distance)
+
+        def clearance_for_yaw(test_yaw: float, *, full_probe: bool = True) -> float:
+            """Maximum clear camera distance for one horizontal viewing angle."""
+            self.camera_rig.rotation_y = test_yaw % 360.0
+            self.camera_pitch_pivot.rotation_x = self.camera_pitch
+            backward = -self.camera_pitch_pivot.forward
+            if full_probe:
+                right = self.camera_pitch_pivot.right
+                up = self.camera_pitch_pivot.up
+                r = CAMERA_PROBE_RADIUS
+                origins = (
+                    target,
+                    target + right * r,
+                    target - right * r,
+                    target + up * r,
+                    target - up * r * 0.55,
+                )
+            else:
+                # Angle-search candidates only need the center line.  The full
+                # five-ray camera volume is checked once after choosing an
+                # angle, avoiding a large raycast spike whenever we hug a wall.
+                origins = (target,)
+            hits = [raycast(origin, backward, distance=self.camera_distance, ignore=ignored_entities) for origin in origins]
+            hit_distances = [hit.distance for hit in hits if hit.hit]
+            if not hit_distances:
+                return self.camera_distance
+            # Do not clamp this upward here.  Doing so was the camera-blocking
+            # bug: when a wall was closer than the old 2.9-unit floor, the
+            # camera was pushed back through that wall and the player vanished
+            # behind it.
+            return max(0.20, min(self.camera_distance, min(hit_distances) - CAMERA_COLLISION_PADDING))
+
+        direct_clearance = clearance_for_yaw(self.camera_yaw)
+        chosen_offset = 0.0
+        safe_distance = direct_clearance
+
+        if direct_clearance < CAMERA_COLLISION_MIN_DISTANCE:
+            # If the requested angle is trapped against a wall/corner, orbit
+            # around the player until there is a proper third-person line of
+            # sight.  Preserve the previous recovery side when it is still
+            # valid so the camera does not flicker left/right every frame.
+            offsets: list[float] = []
+            if abs(self.camera_collision_yaw_offset) > 0.5:
+                offsets.append(self.camera_collision_yaw_offset)
+            for offset in (18, -18, 36, -36, 54, -54, 72, -72, 90, -90, 120, -120, 150, -150, 180):
+                if all(abs(offset - existing) > 0.5 for existing in offsets):
+                    offsets.append(float(offset))
+
+            best_offset = 0.0
+            best_clearance = direct_clearance
+            found_clear_angle = False
+            for offset in offsets:
+                clearance = clearance_for_yaw(self.camera_yaw + offset, full_probe=False)
+                if clearance > best_clearance:
+                    best_clearance = clearance
+                    best_offset = offset
+                if clearance >= CAMERA_COLLISION_MIN_DISTANCE:
+                    chosen_offset = offset
+                    safe_distance = clearance_for_yaw(self.camera_yaw + offset)
+                    found_clear_angle = True
+                    break
+
+            if not found_clear_angle:
+                # Very rare fallback (for example being wedged between several
+                # pieces of cover): use the clearest angle and stay in front of
+                # the blocker rather than crossing through it.
+                chosen_offset = best_offset
+                safe_distance = clearance_for_yaw(self.camera_yaw + best_offset)
+
+        self.camera_collision_yaw_offset = chosen_offset
+        self.camera_rig.rotation_y = (self.camera_yaw + chosen_offset) % 360.0
+        self.camera_pitch_pivot.rotation_x = self.camera_pitch
         shake_x = 0.0
         shake_y = 0.0
         if self.camera_shake_timer > 0.0 and self.camera_shake_strength > 0.0:
