@@ -1251,33 +1251,44 @@ class DungeonFall3D:
         self.health_spawn_timer = random.uniform(HEALTH_SPAWN_MIN, HEALTH_SPAWN_MAX)
         self.build_room_shell()
         for obstacle in spec.obstacles:
+            # Shorten the obstacle's longest horizontal side while keeping its
+            # useful cover thickness. This opens up movement/camera space
+            # without turning every obstacle into a tiny pillar.
+            obstacle_width = obstacle.width
+            obstacle_depth = obstacle.depth
+            if obstacle_width >= obstacle_depth:
+                obstacle_width *= OBSTACLE_LENGTH_SCALE
+            else:
+                obstacle_depth *= OBSTACLE_LENGTH_SCALE
+            obstacle_x = obstacle.x * layout_scale_x
+            obstacle_z = obstacle.z * layout_scale_z
             block = tangent_cube_entity(
                 color=c255(150, 154, 162),
-                position=(obstacle.x * layout_scale_x, obstacle.height / 2, obstacle.z * layout_scale_z),
-                scale=(obstacle.width, obstacle.height, obstacle.depth),
+                position=(obstacle_x, obstacle.height / 2, obstacle_z),
+                scale=(obstacle_width, obstacle.height, obstacle_depth),
                 texture="assets3d/pbr/stone_wall_diff_2k.jpg",
-                texture_scale=(max(1.0, obstacle.width / 1.6), max(1.0, obstacle.height / 1.2)),
+                texture_scale=(max(1.0, obstacle_width / 1.6), max(1.0, obstacle.height / 1.2)),
                 roughness=1.0,
                 normal_map="assets3d/pbr/stone_wall_nor_2k.jpg",
                 selector_map="assets3d/pbr/stone_wall_arm_2k.jpg",
                 collider="box",
             )
             self.room_entities.append(block)
-            self.obstacles.append((block, obstacle.width / 2, obstacle.depth / 2))
+            self.obstacles.append((block, obstacle_width / 2, obstacle_depth / 2))
 
             # Dark stone cap + foot makes obstacles feel built into the room
             # rather than plain collision boxes.
             cap = lit_entity(
                 model="cube",
                 color=c255(57, 60, 72),
-                position=(obstacle.x, obstacle.height + 0.07, obstacle.z),
-                scale=(obstacle.width + 0.10, 0.14, obstacle.depth + 0.10),
+                position=(obstacle_x, obstacle.height + 0.07, obstacle_z),
+                scale=(obstacle_width + 0.10, 0.14, obstacle_depth + 0.10),
             )
             foot = lit_entity(
                 model="cube",
                 color=c255(44, 47, 56),
-                position=(obstacle.x, 0.08, obstacle.z),
-                scale=(obstacle.width + 0.13, 0.16, obstacle.depth + 0.13),
+                position=(obstacle_x, 0.08, obstacle_z),
+                scale=(obstacle_width + 0.13, 0.16, obstacle_depth + 0.13),
             )
             self.room_entities.extend([cap, foot])
         self.enemies = [
